@@ -13,6 +13,7 @@ for i in range(len(li)):
     print('Element: %i at position: %s' % (li[i], i))
 
 li2 = [ 235245.6363, ' abbavcaf', 'srtr', 23534263, 2342, 78678, 2342, 3, 354]
+print(li2.count(2342))
 
 print()
 
