@@ -12,3 +12,16 @@ a, b, c = t2
 print(a)
 print(b)
 print(c)
+
+print()
+d1 = {'a': 10, 'b': 11, 'c': 12}
+#d1 = {'a': 10, 'b': 11, 'c': 12, 'a': 43}
+
+print(d1['a'])
+
+print(list(d1.values()))
+
+print(list(d1.keys()))
+
+for key in d1.keys():
+    print(d1[key])
