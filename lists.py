@@ -32,7 +32,28 @@ print(li2[:-5])
 
 print(li2[:-5])
 
+#'vc'
+print(li2[1][5:7])
 #li2.sort()
 # Redirect output stream and error stream on Unix
 # python lists.py > out 2>out_err
 #print(li)
+
+print('----------------------')
+print(li2)
+se2 = set(li2)
+print(se2)
+
+
+li3 = [432234, 224]
+li4 = li3 + [224, 245]
+print(li4)
+
+print('------------------------')
+li5 = []
+for elem in li4:
+    li5.append(elem * 2)
+print(li5)
+
+li6 = [x*2 for x in li4]
+print(li6)
