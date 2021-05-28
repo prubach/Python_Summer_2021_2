@@ -8,7 +8,6 @@ def run_sequentially(dir):
         download_link(dir, p)
 
 
-
 class DownloadWorker(Thread):
     def __init__(self, queue):
         Thread.__init__(self)
@@ -26,8 +25,10 @@ class DownloadWorker(Thread):
 def run_workers(dir):
     proteins = get_proteins()
     queue = Queue()
-    for n in range(4):
+    for n in range(8):
         worker = DownloadWorker(queue)
+        # Stop when the thread that stared it (main) stops
+        worker.daemon = True
         worker.start()
     for p in proteins:
         queue.put((dir, p))
