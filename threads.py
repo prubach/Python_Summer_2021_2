@@ -4,7 +4,7 @@ import time
 
 class MyThread(threading.Thread):
     def __init__(self, id, name, delay, counter):
-        super().__init__(self)
+        threading.Thread.__init__(self)
         self.name = name
         self.delay = delay
         self.id = id
@@ -20,4 +20,12 @@ class MyThread(threading.Thread):
 
 
 thread1 = MyThread(1, 'Th1', 1, 5)
-thread2 = MyThread(2, 'Th2', 1, 5)
+thread2 = MyThread(2, 'Th2', 1.5, 5)
+
+# Sequentially
+#thread1.run()
+#thread2.run()
+
+# Run in parallel
+thread1.start()
+thread2.start()
