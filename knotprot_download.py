@@ -47,6 +47,8 @@ def time_it(proc, dir=None):
     print('Done {0} in {1} s.'.format(proc.__name__, round(t, 3)))
 
 
+#time_it(print, 'Hello')
+
 
 ##########
 
