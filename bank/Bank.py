@@ -26,7 +26,8 @@ class Account:
 
     def charge(self, amount):
         if amount > self._balance:
-            raise NotEnoughBalanceException("You don't have enough Balance. Your Current Balance is " + str(self._balance))
+            raise NotEnoughBalanceException("You don't have enough Balance. Your Current Balance is " + str(self._balance)
+                                            , self._balance)
         if amount <= 0:
             raise NegativeAmountException("The amount is negative. Please input the positive amount")
         else:
@@ -47,7 +48,9 @@ class CheckingAccount(Account):
     pass
 
 class BankException(Exception):
-    pass
+    def __init__(self, msg, balance=None):
+        super().__init__(msg)
+        self.balance = balance
 
 class NegativeAmountException(BankException):
     pass
@@ -84,16 +87,19 @@ a1.calc_interest()
 print(a1)
 print(a2)
 try:
-    a1._balance = 'abc'
+    a1.charge(400)
     a1.calc_interest()
     a1.charge(-200)
     print('After charging')
     print(a1)
 except NotEnoughBalanceException as nebe:
      print('Exception: ' + str(nebe))
+     print('Balance is {}'.format(nebe.balance))
 except BankException as nebe:
  #except BankException as nebe:
      print('General Exception: ' + str(nebe))
+# except Exception as e:
+#      print(str(e))
 # except NegativeAmountException as nae:
 #     print('Exception: ' + str(nae))
 print('running further')
