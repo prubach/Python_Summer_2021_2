@@ -1,3 +1,6 @@
+from queue import Queue
+from threading import Thread
+
 from knotprot_download import get_proteins, download_link, setup_download_dir, time_it
 
 def run_sequentially(dir):
@@ -6,6 +9,31 @@ def run_sequentially(dir):
 
 
 
+class DownloadWorker(Thread):
+    def __init__(self, queue):
+        Thread.__init__(self)
+        self.queue = queue
+
+    def run(self):
+        while True:
+            dir, prot = self.queue.get()
+            try:
+                download_link(dir, prot)
+            finally:
+                self.queue.task_done()
+
+
+def run_workers(dir):
+    proteins = get_proteins()
+    queue = Queue()
+    for n in range(4):
+        worker = DownloadWorker(queue)
+        worker.start()
+    for p in proteins:
+        queue.put((dir, p))
+    queue.join()
 
 mydir = setup_download_dir()
-time_it(run_sequentially, mydir)
+#time_it(run_sequentially, mydir)
+
+time_it(run_workers, mydir)
