@@ -53,7 +53,7 @@ def thumbnails_sequential():
 
 def thumbnails_parallel():
     create_thumbs = partial(create_thumbnail, (256, 256))
-    with ProcessPoolExecutor as executor:
+    with ProcessPoolExecutor() as executor:
         executor.map(create_thumbs, Path('images').iterdir())
 
 #mydir = setup_download_dir()
@@ -68,4 +68,4 @@ def thumbnails_parallel():
 #time_it(thumbnails_sequential)
 
 print('Thumbnails parallel:')
-time_it(thumbnails_sequential)
+time_it(thumbnails_parallel)
