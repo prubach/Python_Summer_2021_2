@@ -1,9 +1,10 @@
 from functools import partial
+from pathlib import Path
 from queue import Queue
 from threading import Thread
 from multiprocessing.pool import Pool
 
-from knotprot_download import get_proteins, download_link, setup_download_dir, time_it
+from knotprot_download import get_proteins, download_link, setup_download_dir, time_it, create_thumbnail
 
 def run_sequentially(dir):
     for p in get_proteins():
@@ -43,9 +44,20 @@ def run_multiprocessing(mydir):
     with Pool(8) as pl:
         pl.map(download, proteins)
 
+##### Thumbnails
+def thumbnails_sequential():
+    for image_path in Path('images').iterdir():
+        print(image_path)
+        create_thumbnail((256, 256), image_path)
 
-mydir = setup_download_dir()
+
+#mydir = setup_download_dir()
 #time_it(run_sequentially, mydir)
 
+#print('Workers')
 #time_it(run_workers, mydir)
-time_it(run_multiprocessing, mydir)
+#print('Multiprocessing')
+#time_it(run_multiprocessing, mydir)
+
+print('Thumbnails:')
+time_it(thumbnails_sequential)
